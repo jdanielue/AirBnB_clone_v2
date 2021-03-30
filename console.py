@@ -37,7 +37,6 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
-
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
         """
@@ -115,15 +114,32 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
+        if args:
+            parametro = args.split(" ")
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif parametro[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+        new_instance = HBNBCommand.classes[parametro[0]]()
         storage.save()
         print(new_instance.id)
+        storage.save()
+        for i in range(1, len(parametro)):
+            divpar = parametro[i].split("=")
+            key = divpar[0]
+            value = divpar[1]
+            if '"' in value:
+                value = value.replace('"', "")
+            elif '_' in value:
+                value = value.replace('_', ' ')
+            elif '.' in value:
+                value = float(value)
+            else:
+                value = int(value)
+            setattr(new_instance, key, value)
+            i = i + 1
         storage.save()
 
     def help_create(self):
