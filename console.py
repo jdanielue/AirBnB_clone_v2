@@ -130,10 +130,10 @@ class HBNBCommand(cmd.Cmd):
             divpar = parametro[i].split("=")
             key = divpar[0]
             value = divpar[1]
+            if '_' in value:
+                value = value.replace('_', ' ')
             if '"' in value:
                 value = value.replace('"', "")
-            elif '_' in value:
-                value = value.replace('_', ' ')
             elif '.' in value:
                 value = float(value)
             else:
