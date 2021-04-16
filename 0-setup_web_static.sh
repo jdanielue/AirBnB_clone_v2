@@ -6,6 +6,8 @@ if ! [ -x "$(command -v nginx)" ]; then
     apt install nginx -y;
 fi
 
+service nginx start
+
 if [ ! -d /data/ ]; then
   mkdir /data/;
 fi
@@ -40,3 +42,5 @@ fi
 sudo chown -R ubuntu:ubuntu /data/
 
 sed -i '/listen 80 default_server;/a \\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t}' /etc/nginx/sites-available/default
+
+service nginx restart
