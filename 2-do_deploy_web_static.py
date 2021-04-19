@@ -5,7 +5,7 @@ from datetime import datetime
 import os
 import os.path as path
 
-env.hosts = ['35.237.217.126', '35.229.75.225']
+env.hosts = ['104.196.43.40', '54.91.178.63']
 now = datetime.now()
 dt_string = now.strftime("%Y%m%d%H%M%S")
 
@@ -36,13 +36,13 @@ def do_deploy(archive_path):
             .format(path1, path2))
         run("sudo rm /tmp/{}".format(path1))
         run("sudo mv /data/web_static/releases/{}/web_static/* \
-/data/web_static/releases/{}/".format(path2, path2))
+        /data/web_static/releases/{}/".format(path2, path2))
         run("sudo rm -rf /data/web_static/releases/{}/web_static"
             .format(path2))
-        run("sudo rm -rf /data/web_satic/current")
-        run("sudo ln -s /data/web_static/releases/{}/ \
+        run("sudo rm -rf /data/web_static/current")
+        run("sudo ln -s /data/web_static/releases/{} \
 /data/web_static/current".format(path2))
         return True
     else:
-        print("Fail")
+        print("Fallooo :c")
         return False
