@@ -11,7 +11,7 @@ app.url_map.strict_slashes = False
 @app.route("/hbnb")
 def r():
     """ return value """
-    return "HBNB!"
+    return "HBNB"
 
 
 @app.route("/")
