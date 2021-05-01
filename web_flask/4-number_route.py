@@ -41,7 +41,7 @@ def r3a(text):
     return "Python {}".format(new_text)
 
 
-@app.route("/number/<n>")
+@app.route("/number/<int:n>")
 def r4(n):
     """ return value 4"""
     return ("{} is a number".format(n))
