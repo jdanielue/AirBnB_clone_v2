@@ -1,16 +1,20 @@
 #!/usr/bin/python3
 """ script to create a web app """
 
+
 from flask import Flask
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
-@app.route( "/hbnb")
+
+
+@app.route("/hbnb")
 def r():
     """ return value """
     return "HBNB!"
 
-@app.route( "/")
+
+@app.route("/")
 def r1():
     """ return value 2 """
     return "Hello HBNB!"

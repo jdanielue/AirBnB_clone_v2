@@ -5,36 +5,43 @@ from flask import Flask
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
-@app.route( "/hbnb")
+
+
+@app.route("/hbnb")
 def r():
     """ return value """
     return "HBNB!"
 
-@app.route( "/")
+
+@app.route("/")
 def r1():
     """ return value 1"""
     return "Hello HBNB!"
 
-@app.route( "/c/<text>")
+
+@app.route("/c/<text>")
 def r2(text):
     """ return value 2"""
-    new_text = text.replace("_"," ")
+    new_text = text.replace("_", " ")
     return ("C {}".format(new_text))
 
-@app.route( "/python")
+
+@app.route("/python")
 def r3():
     """ return value 3"""
     return "Python is cool"
 
-@app.route( "/python/<text>")
+
+@app.route("/python/<text>")
 def r3a(text):
     """ return value 4"""
     if text is None:
         return "Python is cool"
-    new_text = text.replace("_"," ")
+    new_text = text.replace("_", " ")
     return "Python {}".format(new_text)
 
-@app.route( "/number/<n>")
+
+@app.route("/number/<n>")
 def r4(n):
     """ return value 4"""
     return ("{} is a number".format(n))
