@@ -112,34 +112,42 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, args):
+ def do_create(self, args):
         """ Create an object of any class"""
-        if args:
-            parametro = args.split(" ")
-        if not args:
+        new_args = {}
+        listof_params = args.split()
+        valid_params = {}
+        for params in listof_params[1:]: #loop for parameters
+            params = params.split("=") #break string in key and value
+            new_args[params[0]] = params[1]
+
+        if not listof_params:
             print("** class name missing **")
             return
-        elif parametro[0] not in HBNBCommand.classes:
+
+        if listof_params[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[parametro[0]]()
-        storage.save()
-        print(new_instance.id)
-        storage.save()
-        for i in range(1, len(parametro)):
-            divpar = parametro[i].split("=")
-            key = divpar[0]
-            value = divpar[1]
-            if '_' in value:
-                value = value.replace('_', ' ')
+
+        for key, value in new_args.items():
             if '"' in value:
-                value = value.replace('"', "")
-            elif '.' in value:
-                value = float(value)
+                to_cast = str
+                value = value.replace('_', ' ')
+                value = value.replace('"', '')
             else:
-                value = int(value)
-            setattr(new_instance, key, value)
-            i = i + 1
+                if "." in value:
+                    to_cast = float
+                else:
+                    to_cast = int
+            try:
+                value = to_cast(value)  # "4.56" float("4.56")
+            except ValueError:
+                continue
+            valid_params[key] = value
+    
+        new_instance = HBNBCommand.classes[listof_params[0]](**valid_params)
+        storage.new(new_instance)
+        print(new_instance.id)
         storage.save()
 
     def help_create(self):
