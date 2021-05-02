@@ -15,7 +15,6 @@ class FileStorage:
             return FileStorage.__objects
         else:
             for key, value in FileStorage.__objects.items():
-                name_key = key.split(".")
                 if isinstance(value, cls):
                     dict[key] = value
             return dict
