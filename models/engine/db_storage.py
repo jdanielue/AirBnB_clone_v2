@@ -29,23 +29,20 @@ class DBStorage():
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Query on the current database session
-        Args:
-            cls ([type], optional): [description]. Defaults to None.
         """
-        classes = [State, City, User]
-        list_all_obj = []
-        if cls is None:
-            for clas in classes:
-                list_all_obj += self.__session.query(clas).all()
-        else:
-            list_all_obj = self.__session.query(cls).all()
+        query on the current database session (self.__session) all objects
+        depending of the class name (argument cls)
+        """
+        my_dict = {}
+        classes = [State, City, User, Place, Review, Amenity]
 
-        dic = {}
-        for element in list_all_obj:
-            name = element.__class__.__name__+ '.' + str(element.id)
-            dic[name] = element
-        return dic
+        if cls:
+            classes = [cls]
+        for i in classes:
+            for j in self.__session.query(i).all():
+                key = "{}.{}".format(type(j).__name__, j.id)
+                my_dict[key] = j
+        return my_dict
 
     def new(self, obj):
         """[summary]
