@@ -64,10 +64,14 @@ class DBStorage():
         if obj is not None:
             self.__session.delete(obj)
 
+    """sebitas"""
     def reload(self):
-        """[summary]
-        """
+        """reload all objects in DB"""
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(session_factory)
-        self.__session = Session()
+        session = sessionmaker(self.__engine)
+        session.configure(expire_on_commit=False)
+        self.__session = scoped_session(session)
+
+    def close(self):
+        """call remove() method on the private session attribute"""
+        self.__session.remove()
