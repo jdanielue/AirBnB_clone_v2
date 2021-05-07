@@ -216,6 +216,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             for k, v in all_objs.items():
                 print_list.append(str(v))
+        print(print_list)
 
     def help_all(self):
         """ Help information for the all command """
